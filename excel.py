@@ -1,16 +1,10 @@
 from openpyxl import load_workbook
-
-capitals_data = {
-    "France": "Paris",
-    "Canada": "Ottawa",
-    "Brazil": "Brasilia",
-}
-
-regions_data = {
-    "France": "Europe",
-    "Canada": "North America",
-    "Brazil": "South America",
-}
+from time import sleep
+from api import (
+    get_country_data,
+    get_capital_city,
+    get_region,
+)
 
 
 def get_column_indexes(sheet):
@@ -29,23 +23,21 @@ def update_columns(sheet, country_col_idx, columns_to_update):
   for row in range(2, sheet.max_row + 1):
     country_cell = sheet.cell(row=row, column=country_col_idx)
     country_name = country_cell.value
+    country_data = get_country_data(country_name)
+    if not country_data:
+      raise ValueError(f"The country {country_name} was not found")
 
-    if country_name in capitals_data:
-      capital_cell = sheet.cell(row=row, column=columns_to_update[0])
-      capital_cell.value = capitals_data[country_name]
-      region_cell = sheet.cell(row=row, column=columns_to_update[1])
-      region_cell.value = regions_data[country_name]
+    capital_cell = sheet.cell(row=row, column=columns_to_update[0])
+    capital_cell.value = get_capital_city(country_data)
+    region_cell = sheet.cell(row=row, column=columns_to_update[1])
+    region_cell.value = get_region(country_data)
+    sleep(1)  # respect the rate limit of 1 call per second
 
 
-def fill_excel(filename, capitals_data=None, regions_data=None):
+def fill_excel(filename):
   """
-  Updates the capital cities in an Excel file based on a dictionary of countries and capitals.
+  Updates the capital cities and regions in an Excel file by calling the CountryLayer API
   """
-  if capitals_data is None:
-    capitals_data = {}
-
-  if regions_data is None:
-    regions_data = {}
 
   try:
     workbook = load_workbook(filename)
@@ -64,4 +56,4 @@ def fill_excel(filename, capitals_data=None, regions_data=None):
 
 
 if __name__ == "__main__":
-  fill_excel("countries_info.xlsx", capitals_data, regions_data)
+  fill_excel("countries_info.xlsx")
