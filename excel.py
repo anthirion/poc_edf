@@ -57,8 +57,4 @@ def fill_excel(filename):
 
 
 if __name__ == "__main__":
-  if len(sys.argv) > 1:
-    filename = sys.argv[1]
-    fill_excel(filename)
-  else:
-    print("Please provide the Excel file name as a command-line argument.")
+  fill_excel("countries_info.xlsx")
