@@ -7,10 +7,15 @@ L'Excel liste un certain nombre de pays dans une colonne "Contry" puis le script
 - request pour les requêtes API
 
 ## Mises en gardes
-- Ce code, utilisant openpyxl, ne fonctionne qu'avec les formats Excel suivants (après 2010) :
-  - .xlsx
-  - .xlsm
-  - .xltx
-  - .xltm
+- Ce code, utilisant openpyxl, ne fonctionne qu'avec le format .xlsx
+- Le fichier excel à modifier doit être fermé pendant que le script s'exécute
 
 ## Utilisation
+1. Reprendre le fichier Excel en exemple ou créer un nouveau fichier avec les colonnes "Country", "Capital city" et "Region" puis ne compléter que la colonne Country
+2. Créer un compte gratuit sur countrylayer.com et copier votre clé d'accès
+Tenez compte du fait qu'un compte gratuit limite le nombre d'appels API à 100 appels par mois donc faites attention au nombre de pays que vous mettez dans le fichier Excel pour ne pas utiliser votre quota d'appels gratuits trop vite.
+3. Ajouter votre clé d'accès dans le .env.template et renommez le fichier .env
+4. Une fois que tout est prêt, taper la commande suivante dans un terminal :
+```
+python main.py <nom_du_fichier_excel_a_completer>
+```
