@@ -1,6 +1,5 @@
 from openpyxl import load_workbook
 from time import sleep
-import sys
 from api import (
     get_country_data,
     get_capital_city,

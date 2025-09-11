@@ -5,9 +5,9 @@ import sys
 def main():
   if len(sys.argv) > 1:
     filename = sys.argv[1]
-    excel.fill_excel(filename)
   else:
-    print("Please provide the Excel file name as a command-line argument.")
+    filename = "countries_info.xlsx"
+  excel.fill_excel(filename)
 
 
 if __name__ == "__main__":
