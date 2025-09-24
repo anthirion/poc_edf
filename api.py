@@ -4,7 +4,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-api_key = os.getenv("API_KEY")
+# api_key = os.getenv("API_KEY")
+api_key = "86e3c0db4f576b0f643a6eb67f0bb761"
 
 base_url = "https://api.countrylayer.com/v2"
 
